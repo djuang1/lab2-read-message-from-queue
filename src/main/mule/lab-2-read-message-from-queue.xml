@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<anypoint-mq:config name="Anypoint_MQ_Config" doc:name="Anypoint MQ Config" doc:id="97f8c99c-e78c-406e-b4e2-61be22b735e5" >
+		<anypoint-mq:connection url="${MQ.URL}" clientId="${MQ.clientID}" clientSecret="${MQ.clientSecret}"/>
+	</anypoint-mq:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="5a65cadd-a6d2-4d35-891c-e9ebb54c1f2c" file="properties.yaml" />
+	<flow name="lab2-read-message-from-queueFlow1" doc:id="44995e73-1098-423e-83d7-45054df369dc" >
+		<anypoint-mq:subscriber doc:name="Subscriber" doc:id="6e6ac9d1-2e9d-4555-9002-ef7de0504fa5" config-ref="Anypoint_MQ_Config" destination="djuang-queue">
+		</anypoint-mq:subscriber>
+		<ee:transform doc:name="Transform Message" doc:id="ab298f20-5911-49f2-a9e6-ca13d94ee741" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/csv
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:write doc:name="Write" doc:id="3f6e20c2-fc33-42c0-93cb-2b53b57453b3" path="${file.path}"/>
+	</flow>
+</mule>

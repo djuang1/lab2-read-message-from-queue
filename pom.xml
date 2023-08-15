@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
-	<artifactId>lab2-read-message-from-queue</artifactId>
+	<artifactId>lab-2-read-message-from-queue</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>lab2-read-message-from-queue</name>
+	<name>lab-2-read-message-from-queue</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
